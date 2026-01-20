@@ -23,3 +23,9 @@ buildNumber.properties
 # VS Code
 .vscode
 .vscode/*
+
+# Mac
+.DS_Store
+
+# personal notes
+notes.txt
