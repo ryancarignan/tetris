@@ -32,7 +32,7 @@ public class TetronimoTest {
 
         Block bArr1[] = new Block[]{b1, b2, b3, b4};
 
-        Tetronimo t1 = new Tetronimo(bArr1);
+        Tetronimo t1 = new Tetronimo(bArr1, b3);
 
         assertNotNull(t1);
 
@@ -71,6 +71,7 @@ public class TetronimoTest {
         Tetronimo t1 = Tetronimo.Z.getCopy();
         t1.place(3, 4);
         Block t1Blocks[] = t1.getBlocks();
+        Block t1Pivot = t1.getPivot();
         
         assertEquals(t1Blocks[0].x, 3);
         assertEquals(t1Blocks[0].y, 4);
@@ -83,6 +84,9 @@ public class TetronimoTest {
 
         assertEquals(t1Blocks[3].x, 5);
         assertEquals(t1Blocks[3].y, 5);
+
+        assertEquals(t1Pivot.x, 4);
+        assertEquals(t1Pivot.y, 5);
     }
 
     @Test
@@ -91,6 +95,7 @@ public class TetronimoTest {
         t1.place(3, 4);
         t1.move(1, -2);
         Block t1Blocks[] = t1.getBlocks();
+        Block t1Pivot = t1.getPivot();
         
         assertEquals(t1Blocks[0].x, 4);
         assertEquals(t1Blocks[0].y, 2);
@@ -103,6 +108,9 @@ public class TetronimoTest {
 
         assertEquals(t1Blocks[3].x, 6);
         assertEquals(t1Blocks[3].y, 3);
+
+        assertEquals(t1Pivot.x, 5);
+        assertEquals(t1Pivot.y, 3);
     }
 
     @Test
@@ -112,9 +120,57 @@ public class TetronimoTest {
         TextColor ogColor = t1ColorBlocks[0].color;
         t1.setColor(TextColor.ANSI.MAGENTA);
         Block t1Blocks[] = t1.getBlocks();
+        Block t1Pivot = t1.getPivot();
 
         for (Block block : t1Blocks) {
             assertTrue(block.color.equals(ogColor));
         }
+        assertTrue(t1Pivot.color.equals(ogColor));
+    }
+
+    @Test
+    public void rotateClockwise() {
+        Tetronimo t1 = Tetronimo.L.getCopy();
+        t1.rotate(1);
+        Block t1Blocks[] = t1.getBlocks();
+        Block t1Pivot = t1.getPivot();
+
+        assertEquals(t1Blocks[0].x, 1);
+        assertEquals(t1Blocks[0].y, -1);
+
+        assertEquals(t1Blocks[1].x, 1);
+        assertEquals(t1Blocks[1].y, 0);
+
+        assertEquals(t1Blocks[2].x, 1);
+        assertEquals(t1Blocks[2].y, 1);
+
+        assertEquals(t1Blocks[3].x, 0);
+        assertEquals(t1Blocks[3].y, -1);
+
+        assertEquals(t1Pivot.x, 1);
+        assertEquals(t1Pivot.y, 0);
+    }
+    
+    @Test
+    public void rotateCounterClockwise() {
+        Tetronimo t1 = Tetronimo.L.getCopy();
+        t1.rotate(-1);
+        Block t1Blocks[] = t1.getBlocks();
+        Block t1Pivot = t1.getPivot();
+
+        assertEquals(t1Blocks[0].x, 1);
+        assertEquals(t1Blocks[0].y, 1);
+
+        assertEquals(t1Blocks[1].x, 1);
+        assertEquals(t1Blocks[1].y, 0);
+
+        assertEquals(t1Blocks[2].x, 1);
+        assertEquals(t1Blocks[2].y, -1);
+
+        assertEquals(t1Blocks[3].x, 2);
+        assertEquals(t1Blocks[3].y, 1);
+
+        assertEquals(t1Pivot.x, 1);
+        assertEquals(t1Pivot.y, 0);
     }
 }
